@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="courses_list_error_text">Произошла ошибка при загрузке данных :(</string>
+    <string name="courses_list_retry_button">Повторить</string>
+    <string name="courses_list_header_text">Изучайте актуальные темы</string>
+    <string name="courses_list_courses_count_text">%1$d курсов</string>
+</resources>
