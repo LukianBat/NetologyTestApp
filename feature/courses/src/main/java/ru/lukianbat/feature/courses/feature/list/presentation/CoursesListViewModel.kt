@@ -1,11 +1,10 @@
 package ru.lukianbat.feature.courses.feature.list.presentation
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import androidx.lifecycle.MutableLiveData
 import ru.lukianbat.architecture.mvvm.CoreViewModel
 import ru.lukianbat.architecture.mvvm.ErrorAdapter
+import ru.lukianbat.coreutils.schedulers.BaseSchedulerProvider
 import ru.lukianbat.feature.courses.feature.list.domain.usecase.GetCoursesThemesUseCase
 import ru.lukianbat.feature.courses.feature.list.presentation.view.CoursesListMapper
 import javax.inject.Inject
@@ -13,13 +12,14 @@ import javax.inject.Inject
 class CoursesListViewModel @Inject constructor(
     private val getCoursesThemesUseCase: GetCoursesThemesUseCase,
     private val coursesListMapper: CoursesListMapper,
-    private val errorAdapter: ErrorAdapter
+    private val errorAdapter: ErrorAdapter,
+    private val baseSchedulerProvider: BaseSchedulerProvider
 ) : CoreViewModel() {
 
     val coursesThemesListStateLiveData
         get(): LiveData<ListState> = _coursesThemesListStateLiveData
 
-    private val _coursesThemesListStateLiveData = MediatorLiveData<ListState>()
+    private val _coursesThemesListStateLiveData = MutableLiveData<ListState>()
 
     init {
         loadList()
@@ -37,8 +37,8 @@ class CoursesListViewModel @Inject constructor(
 
     private fun loadList() {
         getCoursesThemesUseCase()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(baseSchedulerProvider.io())
+            .observeOn(baseSchedulerProvider.ui())
             .doOnSubscribe {
                 _coursesThemesListStateLiveData.postValue(ListState.LoadingState)
             }
