@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2572463768115942" />
+        <entry key="app/src/main/res/layout/fragment_start.xml" value="0.2572463768115942" />
+        <entry key="feature/courses/src/main/res/drawable/divider_layer.xml" value="0.3138888888888889" />
+        <entry key="feature/courses/src/main/res/drawable/divider_shape.xml" value="0.3138888888888889" />
+        <entry key="feature/courses/src/main/res/drawable/ic_city_loading_success.xml" value="0.21197916666666666" />
+        <entry key="feature/courses/src/main/res/drawable/ic_clear_city.xml" value="0.21197916666666666" />
+        <entry key="feature/courses/src/main/res/drawable/place_holder_shape.xml" value="0.3138888888888889" />
+        <entry key="feature/courses/src/main/res/layout/fragment_choose_city.xml" value="0.2572463768115942" />
+        <entry key="feature/courses/src/main/res/layout/fragment_courses_flow.xml" value="0.2572463768115942" />
+        <entry key="feature/courses/src/main/res/layout/fragment_courses_list.xml" value="0.2572463768115942" />
+        <entry key="feature/courses/src/main/res/layout/item_city.xml" value="0.19583333333333333" />
+        <entry key="feature/courses/src/main/res/layout/item_city_error.xml" value="0.19583333333333333" />
+        <entry key="feature/courses/src/main/res/layout/item_city_selected.xml" value="0.19583333333333333" />
+        <entry key="feature/courses/src/main/res/layout/item_courses_header.xml" value="0.2133151396853564" />
+        <entry key="feature/courses/src/main/res/layout/item_courses_theme.xml" value="0.3252633091962755" />
+        <entry key="feature/courses/src/main/res/layout/item_error.xml" value="0.2572463768115942" />
+        <entry key="shared/coreui/src/main/res/font/roboto.xml" value="0.2838541666666667" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

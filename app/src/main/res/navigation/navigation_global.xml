@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_global"
+    app:startDestination="@id/fragment_start">
+
+    <fragment
+        android:id="@+id/fragment_start"
+        android:name="ru.lukianbat.netologytest.presentation.start.StartFragment">
+        <action
+            android:id="@+id/loadCoursesAction"
+            app:destination="@+id/fragment_courses_flow" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_courses_flow"
+        android:name="ru.lukianbat.feature.courses.feature.CoursesFlowFragment" />
+
+</navigation>

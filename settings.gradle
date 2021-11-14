@@ -1,10 +1,15 @@
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
-    }
-}
-rootProject.name = "NetologyTestApp"
 include ':app'
+
+include ':feature:courses'
+
+includeWithPath(':coreutils', "shared/coreutils")
+includeWithPath(':coreui', "shared/coreui")
+includeWithPath(':architecture-mvvm', "shared/architecture/mvvm")
+includeWithPath(':architecture-network', "shared/architecture/network")
+
+rootProject.name = "NetologyTestApp"
+
+def includeWithPath(String moduleName, String modulePath) {
+    include(moduleName)
+    project(moduleName).projectDir = new File(rootDir, modulePath)
+}
