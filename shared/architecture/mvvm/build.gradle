@@ -1,0 +1,9 @@
+dependencies {
+    implementation "androidx.annotation:annotation:$versions.annotations"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle_extensions"
+
+    implementation "io.reactivex.rxjava2:rxkotlin:$versions.rxkotlin"
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava"
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
+}
