@@ -98,6 +98,9 @@ subprojects {
                 implementation "io.reactivex.rxjava2:rxkotlin:$versions.rxkotlin"
                 implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava"
                 implementation "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
+
+                testImplementation "junit:junit:$versions.junit"
+                testImplementation "io.mockk:mockk:$versions.mockk"
             }
         }
     }
