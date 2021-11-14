@@ -7,6 +7,8 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import ru.lukianbat.architecture.mvvm.ErrorAdapter
+import ru.lukianbat.coreutils.schedulers.BaseSchedulerProvider
+import ru.lukianbat.coreutils.schedulers.SchedulerProvider
 import ru.lukianbat.netologytest.DefaultErrorAdapter
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -34,6 +36,11 @@ class ApplicationModule {
     @Singleton
     fun provideErrorAdapter(context: Context): ErrorAdapter {
         return DefaultErrorAdapter(context)
+    }
+
+    @Provides
+    fun provideBaseSchedulerProvider(): BaseSchedulerProvider {
+        return SchedulerProvider()
     }
 
     companion object {
