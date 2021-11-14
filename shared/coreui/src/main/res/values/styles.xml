@@ -1,0 +1,42 @@
+<resources>
+
+    <style name="Theme.NetologyTestApp" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="textAppearanceButton">@style/TextAppearance.NetologyTestApp.Button</item>
+        <item name="materialButtonStyle">@style/Widget.NetologyTestApp.Button</item>
+        <item name="buttonStyle">@style/Widget.NetologyTestApp.Button</item>
+    </style>
+
+    <!--Button-->
+    <style name="Widget.NetologyTestApp.Button" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:minWidth">64dp</item>
+        <item name="android:minHeight">72dp</item>
+        <item name="backgroundTint">@color/button_with_disable</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <style name="TextAppearance.NetologyTestApp.Button" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="Widget.NetologyTestApp.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:minHeight">64dp</item>
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="rippleColor">@color/buttonRippleColor</item>
+    </style>
+
+    <style name="NetologyTestAppTextFieldTheme" parent="">
+        <item name="colorPrimary">#A0C9FE</item>
+        <item name="colorOnSurface">#A0C9FE</item>
+    </style>
+</resources>

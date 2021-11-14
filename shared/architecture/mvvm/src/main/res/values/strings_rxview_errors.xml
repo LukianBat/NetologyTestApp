@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rxview_errors_network">Ошибка сетевого подключения, проверьте подключение к сети</string>
+</resources>

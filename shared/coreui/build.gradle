@@ -1,0 +1,10 @@
+dependencies {
+    api "com.google.android.material:material:$versions.materialcomponents"
+    api "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+
+    implementation "androidx.core:core-ktx:$versions.corektx"
+
+    // Architecture components' view model
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle_extensions"
+    implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$versions.lifecycle_extensions"
+}
