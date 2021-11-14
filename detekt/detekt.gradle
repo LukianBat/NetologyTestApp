@@ -1,0 +1,83 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$versions.detekt"
+        classpath "io.gitlab.arturbosch.detekt:detekt-formatting:$versions.detekt"
+    }
+}
+
+apply plugin: io.gitlab.arturbosch.detekt.DetektPlugin
+
+tasks {
+    task detektAll(type: io.gitlab.arturbosch.detekt.Detekt) {
+        description = "Runs static analisys tool for looking for code smells"
+        autoCorrect = false        // auto correct of code (default: false)
+        parallel = true            // Runs detekt in parallel. Can lead to speedups in larger projects. `false` by default.
+        source = files(rootDir)    // The directories where detekt looks for input files. Defaults to `files("src/main/java", "src/main/kotlin")`.
+        include("**/*.kt")
+        include("**/*.kts")
+        exclude("**/resources/**")
+        exclude("**/build/**")
+        config.from(files("$rootDir/detekt/detekt-config.yml")) // Define the detekt configuration(s) you want to use. Defaults to the default detekt configuration.
+        //baseline.set(file("$rootDir/detekt/baseline.xml"))      // Specifying a baseline file. All findings stored in this file in subsequent runs of detekt.// Builds the AST in parallel. Rules are always executed in parallel. Can lead to speedups in larger projects. `false` by default.
+
+        reports {
+            xml {
+                enabled = false // Enable/Disable XML report (default: true)
+                destination = file("$rootDir/detekt/reports/detekt.xml") // Path where HTML report will be stored (default: `build/reports/detekt/detekt.html`)
+            }
+            html {
+                enabled = true // Enable/Disable HTML report (default: true)
+                destination = file("$rootDir/detekt/reports/detekt.html") // Path where HTML report will be stored (default: `build/reports/detekt/detekt.html`)
+            }
+            txt {
+                enabled = true // Enable/Disable HTML report (default: true)
+                destination = file("$rootDir/detekt/reports/detekt.txt") // Path where TXT report will be stored (default: `build/reports/detekt/detekt.txt`)
+            }
+        }
+    }
+
+    task detektFixAll(type: io.gitlab.arturbosch.detekt.Detekt) {
+        description = "Runs static analisys tool to look for code smells and autoCorrect them"
+        autoCorrect = true         // auto correct of code (default: false)
+        parallel = true            // Runs detekt in parallel. Can lead to speedups in larger projects. `false` by default.
+        source = files(rootDir)    // The directories where detekt looks for input files. Defaults to `files("src/main/java", "src/main/kotlin")`.
+        include("**/*.kt")
+        include("**/*.kts")
+        exclude("**/resources/**")
+        exclude("**/build/**")
+        config.from(files("$rootDir/detekt/detekt-config.yml")) // Define the detekt configuration(s) you want to use. Defaults to the default detekt configuration.
+        //baseline.set(file("$rootDir/detekt/baseline.xml"))      // Specifying a baseline file. All findings stored in this file in subsequent runs of detekt.// Builds the AST in parallel. Rules are always executed in parallel. Can lead to speedups in larger projects. `false` by default.
+
+        reports {
+            xml {
+                enabled = false // Enable/Disable XML report (default: true)
+                destination = file("$rootDir/detekt/reports/detekt.xml") // Path where HTML report will be stored (default: `build/reports/detekt/detekt.html`)
+            }
+            html {
+                enabled = true // Enable/Disable HTML report (default: true)
+                destination = file("$rootDir/detekt/reports/detekt.html") // Path where HTML report will be stored (default: `build/reports/detekt/detekt.html`)
+            }
+            txt {
+                enabled = true // Enable/Disable HTML report (default: true)
+                destination = file("$rootDir/detekt/reports/detekt.txt") // Path where TXT report will be stored (default: `build/reports/detekt/detekt.txt`)
+            }
+        }
+    }
+
+    task detektAllCreateBaseline(type: io.gitlab.arturbosch.detekt.DetektCreateBaselineTask) {
+        description = "Creating list of code smells which will be ignored"
+        ignoreFailures = true
+        parallel = true
+        source = files(rootDir)
+        config.from(files("$rootDir/detekt/detekt-config.yml"))
+        baseline.set(file("$rootDir/detekt/baseline.xml"))
+        include("**/*.kt")
+        include("**/*.kts")
+        exclude("**/build/**")
+        exclude("**/buildSrc/**")
+        exclude("**/test/**/*.kt")
+    }
+}
