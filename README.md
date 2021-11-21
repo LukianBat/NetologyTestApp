@@ -9,5 +9,13 @@
 * Реализация ui-паттерна MVVM, с помощью Android Jetpack
 * Покрытие функционала unit-тестами
 * Настройка CI с помощью Github Actions (Добавлены стилистическая проверка кода Detekt и прогон юнит тестов при пуше)
+# Миграция на Jetpack Compose
+В ветках :
+1) feature/jetpack-compose-migration-1
+2) feature/jetpack-compose-migration-2
+3) feature/jetpack-compose-migration-3
+
+
+Последовательно осуществляется поэтапная миграция на Jetpack Compose.
 # Сборка
 [Ссылка на сборку](https://github.com/LukianBat/NetologyTestApp/blob/master/app-release.apk)
