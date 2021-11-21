@@ -1,4 +1,4 @@
-package ru.lukianbat.feature.courses.feature.list.presentation.view
+package ru.lukianbat.feature.courses.feature.list.presentation.list
 
 import ru.lukianbat.feature.courses.feature.list.domain.model.CoursesTheme
 

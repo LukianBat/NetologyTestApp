@@ -1,6 +1,6 @@
 package ru.lukianbat.feature.courses.feature.list.presentation
 
-import ru.lukianbat.feature.courses.feature.list.presentation.view.CoursesListItem
+import ru.lukianbat.feature.courses.feature.list.presentation.list.CoursesListItem
 
 sealed class ListState {
 

@@ -1,7 +1,7 @@
 package ru.lukianbat.feature.courses.feature.list.di
 
 import dagger.Subcomponent
-import ru.lukianbat.feature.courses.feature.list.presentation.CoursesListFragment
+import ru.lukianbat.feature.courses.feature.list.presentation.CoursesListViewModel
 
 @Subcomponent(modules = [CoursesListModule::class])
 interface CoursesListComponent {
@@ -11,5 +11,5 @@ interface CoursesListComponent {
         fun create(): CoursesListComponent
     }
 
-    fun inject(fragment: CoursesListFragment)
+    fun getViewModel(): CoursesListViewModel
 }
