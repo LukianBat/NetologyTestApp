@@ -11,9 +11,9 @@
 * Настройка CI с помощью Github Actions (Добавлены стилистическая проверка кода Detekt и прогон юнит тестов при пуше)
 # Миграция на Jetpack Compose
 В ветках :
-1) feature/jetpack-compose-migration-1
-2) feature/jetpack-compose-migration-2
-3) feature/jetpack-compose-migration-3
+1) feature/jetpack-compose-migration-1 - Переводим на композ отдельные фрагменты
+2) feature/jetpack-compose-migration-2 - Переводим на композ флоу фрагменты + добавляем Jetpack Compose Navigation
+3) feature/jetpack-compose-migration-3 - Переводим на композ главную активити и всё приложение
 
 
 Последовательно осуществляется поэтапная миграция на Jetpack Compose.
