@@ -4,4 +4,7 @@
     <color name="message_card_background_color">#C9E0FF</color>
     <color name="error_card_background_color">#FF866C</color>
     <color name="courses_list_header_color">#3085F8</color>
+    <color name="button_color_enabled">#9ACDFC</color>
+    <color name="button_color_disabled">#D1E2F2</color>
+    <color name="button_color_pressed">#E0EFFD</color>
 </resources>

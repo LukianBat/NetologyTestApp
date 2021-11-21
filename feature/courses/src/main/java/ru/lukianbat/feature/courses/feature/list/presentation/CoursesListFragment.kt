@@ -2,39 +2,48 @@ package ru.lukianbat.feature.courses.feature.list.presentation
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.OnBackPressedDispatcherOwner
-import androidx.activity.addCallback
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
+import android.view.ViewGroup
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.toFontFamily
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.navGraphViewModels
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import ru.lukianbat.coreui.utils.drawable
-import ru.lukianbat.coreui.utils.viewBinding
 import ru.lukianbat.feature.courses.R
 import ru.lukianbat.feature.courses.common.di.CoursesFlowComponentController
-import ru.lukianbat.feature.courses.databinding.FragmentCoursesListBinding
-import ru.lukianbat.feature.courses.feature.list.presentation.view.CoursesListAdapter
+import ru.lukianbat.feature.courses.feature.list.presentation.view.CoursesListItem
 import javax.inject.Inject
 
-class CoursesListFragment : Fragment(R.layout.fragment_courses_list) {
+class CoursesListFragment : Fragment() {
+
+    companion object {
+        private const val HEADER_COLOR_START_INDEX = 9
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel by navGraphViewModels<CoursesListViewModel>(R.id.navigation_cities) { viewModelFactory }
-
-    private val binding by viewBinding(FragmentCoursesListBinding::bind)
-
-    private val retryButton get() = binding.retryButton
-    private val errorMessageTextView get() = binding.errorMessageTextView
-    private val recyclerView get() = binding.recyclerView
-    private val progressBar get() = binding.progressBar
-
-    private lateinit var coursesListAdapter: CoursesListAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,61 +54,150 @@ class CoursesListFragment : Fragment(R.layout.fragment_courses_list) {
             .inject(this)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (requireActivity() as OnBackPressedDispatcherOwner).onBackPressedDispatcher.addCallback(this) {
-            requireActivity().findNavController(R.id.host_cities).popBackStack()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return ComposeView(requireContext()).apply {
+            setContent { CoursesListScreen() }
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initView()
-        initLiveData()
+    @Composable
+    private fun CoursesListScreen() {
+        val listState: ListState? by viewModel.coursesThemesListStateLiveData.observeAsState()
+        when (listState) {
+            is ListState.ItemsState -> CoursesItemsList(
+                (listState as ListState.ItemsState).coursesThemes
+            )
+            ListState.LoadingState -> LoadingProgress()
+            is ListState.ErrorState -> LoadingError(
+                (listState as ListState.ErrorState).errorMessage
+            )
+        }
     }
 
-    private fun initView() {
-        val layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        coursesListAdapter = CoursesListAdapter()
-        val dividerItemDecoration = DividerItemDecoration(
-            requireContext(),
-            layoutManager.orientation
-        )
-        dividerItemDecoration.setDrawable(
-            drawable(R.drawable.divider_layer) ?: return
-        )
-        recyclerView.addItemDecoration(dividerItemDecoration)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = coursesListAdapter
-
-        retryButton.setOnClickListener { viewModel.onRetryButtonClicked() }
+    @Composable
+    private fun LoadingProgress() {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CircularProgressIndicator(
+                color = colorResource(
+                    id = R.color.colorPrimaryDark
+                )
+            )
+        }
     }
 
-    private fun initLiveData() {
-        viewModel.coursesThemesListStateLiveData.observe(viewLifecycleOwner, {
-            when (val state = it) {
-                is ListState.ItemsState -> {
-                    showError(false)
-                    progressBar.isVisible = false
-                    coursesListAdapter.submitList(state.coursesThemes)
-                }
-                ListState.LoadingState -> {
-                    showError(false)
-                    progressBar.isVisible = true
-                }
-                is ListState.ErrorState -> {
-                    errorMessageTextView.text = state.errorMessage
-                    progressBar.isVisible = false
-                    showError(true)
-                }
+    @Composable
+    private fun LoadingError(errorMessage: String) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Text(
+                text = errorMessage,
+                color = colorResource(R.color.textColorPrimary),
+                fontSize = 21.sp,
+                fontFamily = Font(resId = R.font.roboto_medium).toFontFamily(),
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .align(Alignment.Center)
+            )
+            Button(
+                enabled = true,
+                onClick = viewModel::onRetryButtonClicked,
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = colorResource(id = R.color.button_color_enabled),
+                    disabledBackgroundColor = colorResource(id = R.color.button_color_disabled)
+                ),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 16.dp
+                    )
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.courses_list_retry_button).uppercase(),
+                    color = colorResource(id = R.color.colorBlack),
+                    fontSize = 12.sp,
+                    fontFamily = Font(resId = R.font.roboto_medium).toFontFamily(),
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
             }
-        })
+        }
     }
 
-    private fun showError(show: Boolean) {
-        errorMessageTextView.isVisible = show
-        retryButton.isVisible = show
-        recyclerView.isVisible = !show
+    @Composable
+    private fun CoursesItemsList(coursesThemes: List<CoursesListItem>) {
+        LazyColumn {
+            items(coursesThemes) { theme ->
+                when (theme) {
+                    is CoursesListItem.CoursesThemeItem -> {
+                        Box(
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    horizontal = 16.dp,
+                                    vertical = 8.dp
+                                )
+                        ) {
+                            Column {
+                                Text(
+                                    text = theme.coursesTheme.title,
+                                    color = colorResource(R.color.textColorPrimary),
+                                    fontSize = 21.sp,
+                                    fontFamily = Font(resId = R.font.roboto_medium).toFontFamily(),
+                                )
+                                Text(
+                                    text = stringResource(
+                                        R.string.courses_list_courses_count_text,
+                                        theme.coursesTheme.coursesCount
+                                    ),
+                                    color = colorResource(R.color.edit_text_container_color),
+                                    fontSize = 14.sp,
+                                    fontFamily = Font(resId = R.font.roboto_medium).toFontFamily(),
+                                    modifier = Modifier.padding(vertical = 6.dp)
+                                )
+                            }
+                            Image(
+                                painter = painterResource(id = R.drawable.place_holder_shape),
+                                contentDescription = null,
+                                modifier = Modifier.align(Alignment.CenterEnd)
+                            )
+                        }
+                    }
+
+                    is CoursesListItem.HeaderItem -> Text(
+                        text = buildAnnotatedString {
+                            append(theme.headerString)
+                            addStyle(
+                                style = SpanStyle(
+                                    color = colorResource(R.color.courses_list_header_color),
+
+                                    ),
+                                start = HEADER_COLOR_START_INDEX,
+                                end = theme.headerString.length
+                            )
+                        },
+                        color = colorResource(R.color.textColorPrimary),
+                        fontSize = 28.sp,
+                        fontFamily = Font(resId = R.font.roboto_medium).toFontFamily(),
+                        modifier = Modifier.padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                            top = 16.dp,
+                            bottom = 8.dp
+                        )
+                    )
+                }
+                Divider(
+                    color = colorResource(R.color.divider_color),
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+            }
+        }
     }
 }
