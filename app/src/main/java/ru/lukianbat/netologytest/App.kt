@@ -24,6 +24,10 @@ class App : Application(), CoursesFlowComponentController {
         return requireNotNull(citiesFlowComponent.value)
     }
 
+    fun provideAppComponent(): ApplicationComponent {
+        return appComponent
+    }
+
     override fun clearCoursesFlowComponent() {
         citiesFlowComponent.reset()
     }

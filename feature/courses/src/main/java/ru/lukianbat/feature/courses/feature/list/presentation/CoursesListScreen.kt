@@ -55,7 +55,8 @@ fun CoursesListScreen(
 private fun LoadingProgress() {
     Column(
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize(),
     ) {
         CircularProgressIndicator(
             color = colorResource(
