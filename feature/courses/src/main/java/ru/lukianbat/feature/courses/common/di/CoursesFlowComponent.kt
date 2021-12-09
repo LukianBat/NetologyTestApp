@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Subcomponent
 import ru.lukianbat.feature.courses.common.di.modules.CoursesFlowModule
 import ru.lukianbat.feature.courses.common.di.modules.NetworkModule
-import ru.lukianbat.feature.courses.feature.CoursesFlowFragment
+import ru.lukianbat.feature.courses.feature.CoursesFlowViewModel
 import ru.lukianbat.feature.courses.feature.list.di.CoursesListComponent
 
 @CoursesFlowScope
@@ -22,9 +22,9 @@ interface CoursesFlowComponent {
         fun create(): CoursesFlowComponent
     }
 
-    fun coursesCityComponent(): CoursesListComponent.Factory
+    fun coursesListComponent(): CoursesListComponent.Factory
 
-    fun inject(fragment: CoursesFlowFragment)
+    fun getViewModel(): CoursesFlowViewModel
 }
 
 @Module(subcomponents = [CoursesListComponent::class])

@@ -24,7 +24,7 @@
         </activity>
 
         <activity
-            android:name="ru.lukianbat.netologytest.presentation.main.MainActivity"
+            android:name="ru.lukianbat.netologytest.presentation.MainActivity"
             android:exported="true" />
     </application>
 </manifest>

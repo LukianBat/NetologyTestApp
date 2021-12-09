@@ -12,7 +12,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:7.0.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
     }
 }
@@ -62,7 +62,10 @@ subprojects {
 
             if (isAppOrFeature) {
                 buildFeatures {
-                    viewBinding = true
+                    compose true
+                }
+                composeOptions {
+                    kotlinCompilerExtensionVersion versions.compose_version
                 }
             }
 
@@ -85,14 +88,24 @@ subprojects {
                 implementation project(":coreui")
                 implementation project(":architecture-mvvm")
 
+                // compose
+                implementation "androidx.compose.ui:ui:$versions.compose_version"
+                implementation "androidx.compose.material:material:$versions.compose_version"
+                implementation "androidx.compose.ui:ui-tooling-preview:$versions.compose_version"
+                implementation "androidx.compose.runtime:runtime-livedata:$versions.compose_version"
+
                 // dagger
                 implementation "com.google.dagger:dagger:$versions.dagger"
                 kapt "com.google.dagger:dagger-compiler:$versions.dagger"
 
                 // jetpack
-                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle_version")
                 implementation("androidx.navigation:navigation-fragment-ktx:2.3.5")
                 implementation("androidx.navigation:navigation-ui-ktx:2.3.5")
+                implementation("androidx.navigation:navigation-compose:2.4.0-alpha01")
+
+                // app compat
+                implementation "androidx.appcompat:appcompat:$versions.app_compat"
 
                 // rxJava
                 implementation "io.reactivex.rxjava2:rxkotlin:$versions.rxkotlin"

@@ -6,7 +6,7 @@ import ru.lukianbat.architecture.mvvm.CoreViewModel
 import ru.lukianbat.architecture.mvvm.ErrorAdapter
 import ru.lukianbat.coreutils.schedulers.BaseSchedulerProvider
 import ru.lukianbat.feature.courses.feature.list.domain.usecase.GetCoursesThemesUseCase
-import ru.lukianbat.feature.courses.feature.list.presentation.view.CoursesListMapper
+import ru.lukianbat.feature.courses.feature.list.presentation.list.CoursesListMapper
 import javax.inject.Inject
 
 class CoursesListViewModel @Inject constructor(
