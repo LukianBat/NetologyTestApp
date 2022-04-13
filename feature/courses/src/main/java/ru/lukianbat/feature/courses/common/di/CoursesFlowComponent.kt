@@ -22,7 +22,7 @@ interface CoursesFlowComponent {
         fun create(): CoursesFlowComponent
     }
 
-    fun coursesCityComponent(): CoursesListComponent.Factory
+    fun coursesListComponent(): CoursesListComponent.Factory
 
     fun inject(fragment: CoursesFlowFragment)
 }

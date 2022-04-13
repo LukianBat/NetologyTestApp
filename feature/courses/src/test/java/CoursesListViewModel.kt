@@ -10,7 +10,7 @@ import ru.lukianbat.coreutils.schedulers.TestSchedulerProvider
 import ru.lukianbat.feature.courses.feature.list.domain.model.CoursesTheme
 import ru.lukianbat.feature.courses.feature.list.domain.usecase.GetCoursesThemesUseCase
 import ru.lukianbat.feature.courses.feature.list.presentation.CoursesListViewModel
-import ru.lukianbat.feature.courses.feature.list.presentation.view.CoursesListMapper
+import ru.lukianbat.feature.courses.feature.list.presentation.list.CoursesListMapper
 
 class CoursesListViewModel {
 
